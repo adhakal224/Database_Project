@@ -105,6 +105,10 @@ Insert into Challengers values((Select user_Id from User where user_fname = 'Ste
 Insert into Challengers values((Select user_Id from User where user_fname = 'Steven' and user_lname = 'Strange'), (Select challenge_id from Challenges where challenge_name = 'Weekend Run'));
 Insert into Challengers values((Select user_Id from User where user_fname = 'John' and user_lname = 'Wick'), (Select challenge_id from Challenges where challenge_name = 'April Runner'));
 Insert into Challengers values((Select user_Id from User where user_fname = 'Samrajya' and user_lname = 'Thapa'), (Select challenge_id from Challenges where challenge_name = 'Leg Day Everyday'));
+Insert into Challengers values((Select user_Id from User where user_fname = 'Samrajya' and user_lname = 'Thapa'), (Select challenge_id from Challenges where challenge_name = 'The Flash'));
+Insert into Challengers values((Select user_Id from User where user_fname = 'Aayush' and user_lname = 'Dhakal'), (Select challenge_id from Challenges where challenge_name = 'April Runner'));
+Insert into Challengers values((Select user_Id from User where user_fname = 'Iron' and user_lname = 'Man'), (Select challenge_id from Challenges where challenge_name = 'Weekend Run'));
+
 
 --Populate Records
 INSERT INTO Records(user_Id, miles, run_time, pace, calories_burned, record_date)
@@ -123,9 +127,16 @@ INSERT INTO Records(user_Id, miles, run_time, pace, calories_burned, record_date
   VALUES((SELECT user_Id FROM User WHERE user_fname = "Aayush" AND user_lname = "Dhakal"), 1, 8, run_time/miles , 90, "2021-04-20");
 INSERT INTO Records(user_Id, miles, run_time, pace, calories_burned, record_date)
   VALUES((SELECT user_Id FROM User WHERE user_fname = "Aayush" AND user_lname = "Dhakal"), 2, 14.5, run_time/miles , 250, "2021-04-25");
+INSERT INTO Records(user_Id, miles, run_time, pace, calories_burned, record_date)
+  VALUES((SELECT user_Id FROM User WHERE user_fname = "John" AND user_lname = "Wick"), 1, 6, run_time/miles , 120, "2021-04-25");
+INSERT INTO Records(user_Id, miles, run_time, pace, calories_burned, record_date)
+  VALUES((SELECT user_Id FROM User WHERE user_fname = "John" AND user_lname = "Wick"), 1, 5.4, run_time/miles , 120, "2021-04-29");
+INSERT INTO Records(user_Id, miles, run_time, pace, calories_burned, record_date)
+  VALUES((SELECT user_Id FROM User WHERE user_fname = "John" AND user_lname = "Wick"), 2, 13, run_time/miles , 240, "2021-04-31");
+
 
 --Query 1 (Sam):
 SELECT user_Id, user_fname, user_lname, (SELECT ROUND(AVG(pace), 2)) AS avg_pace FROM User NATURAL JOIN Records GROUP BY user_Id ORDER BY user_Id;
 
 --Query 3 (Sam):
-SELECT challenge_Id, COUNT(user_Id) AS count_users, AVG(user_weight) as avg_weight, MAX(user_weight) AS max_weight, MIN(user_weight) AS min_weight FROM Challengers NATURAL JOIN User GROUP BY challenge_Id ORDER BY challenge_Id;
+SELECT challenge_Id, COUNT(user_Id) AS count_users, (SELECT ROUND(AVG(user_weight), 2)) as avg_weight, MAX(user_weight) AS max_weight, MIN(user_weight) AS min_weight FROM Challengers NATURAL JOIN User GROUP BY challenge_Id ORDER BY challenge_Id;
