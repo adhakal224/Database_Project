@@ -138,5 +138,11 @@ INSERT INTO Records(user_Id, miles, run_time, pace, calories_burned, record_date
 --Query 1 (Sam):
 SELECT user_Id, user_fname, user_lname, (SELECT ROUND(AVG(pace), 2)) AS avg_pace FROM User NATURAL JOIN Records GROUP BY user_Id ORDER BY user_Id;
 
+--Query 2 (Aayush)
+Select goal_id, goal_name, description from Goals where user_Id = (SELECT user_id from User where user_fname='Aayush' and user_lname='Dhakal');
+
 --Query 3 (Sam):
-SELECT challenge_Id, COUNT(user_Id) AS count_users, (SELECT ROUND(AVG(user_weight), 2)) as avg_weight, MAX(user_weight) AS max_weight, MIN(user_weight) AS min_weight FROM Challengers NATURAL JOIN User GROUP BY challenge_Id ORDER BY challenge_Id;
+SELECT challenge_id, challenge_name, COUNT(user_Id) AS count_users, (SELECT ROUND(AVG(user_weight), 2)) as avg_weight, MAX(user_weight) AS max_weight, MIN(user_weight) AS min_weight FROM Challengers NATURAL JOIN User natural join Challenges GROUP BY challenge_id, challenge_name ORDER BY challenge_id;
+
+--Query 3 (Aayush)
+Select concat(user_fname, " ", user_lname) as `User Name`, GROUP_CONCAT(goal_name) as Goals from User natural join Goals group by user_fname, user_lname;
